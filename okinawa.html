@@ -43,15 +43,16 @@
   .notice strong { color: #A5502F; }
 
   .tabbar { position: sticky; top: 0; z-index: 10; background: #FAF9F5; border-bottom: 1px solid rgba(31,30,29,0.15); }
-  .tabbar .wrap { display: flex; gap: 26px; overflow-x: auto; }
+  .tabbar .wrap { display: flex; gap: 8px; overflow-x: auto; padding-top: 12px; padding-bottom: 12px; }
   .tab {
-    background: none; border: none; border-bottom: 3px solid transparent;
-    padding: 16px 1px 13px; font-family: inherit; font-size: 14px; font-weight: 500;
-    color: #87867F; cursor: pointer; white-space: nowrap;
+    display: inline-flex; align-items: center; min-height: 42px; padding: 0 14px;
+    background: var(--soft); border: 1px solid transparent; border-radius: 999px;
+    font-family: inherit; font-size: 13px; font-weight: 500;
+    color: #5E5D59; cursor: pointer; white-space: nowrap;
   }
-  .tab.tab-check { margin-left: auto; padding-left: 20px; }
-  .tab:hover { color: #141413; }
-  .tab.active { color: var(--accent); font-weight: 700; border-bottom-color: var(--accent); }
+  .tab.tab-check { margin-left: auto; }
+  .tab:hover { background: var(--strong); color: #141413; }
+  .tab.active { background: var(--strong); border-color: var(--bd); color: var(--accent); font-weight: 700; }
   .tab:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
   .day-panel { max-width: 760px; margin: 0 auto; padding: 40px 32px 0; }
@@ -120,8 +121,9 @@
     .wrap, .day-panel, .foot { padding-left: 20px; padding-right: 20px; }
     h1 { font-size: 28px; }
     h2 { font-size: 21px; }
-    .tabbar .wrap { gap: 18px; }
-    .tab.tab-check { margin-left: 0; padding-left: 1px; }
+    .tabbar .wrap { gap: 8px; }
+    .tab { font-size: 13px; padding: 0 14px; }
+    .tab.tab-check { margin-left: 0; }
   }
   @media print {
     .tabbar, .lnk-row { display: none; }
@@ -152,11 +154,11 @@
 
   <nav class="tabbar">
     <div class="wrap">
-        <button type="button" class="tab active" data-day="day1" style="--accent:#A5502F">1일차 · 도착·차탄</button>
-        <button type="button" class="tab" data-day="day2" style="--accent:#3E6B99">2일차 · 북부투어</button>
-        <button type="button" class="tab" data-day="day3" style="--accent:#8F3D5C">3일차 · 스노클링·온천</button>
-        <button type="button" class="tab" data-day="day4" style="--accent:#52603F">4일차 · 귀국</button>
-        <button type="button" class="tab tab-check" data-day="check" style="--accent:#141413">사전 체크 · 출발 전 확인</button>
+        <button type="button" class="tab active" data-day="day1" style="--accent:#A5502F; --soft:rgba(165,80,47,0.09); --strong:rgba(165,80,47,0.20); --bd:rgba(165,80,47,0.45)">1일차 · 도착·차탄</button>
+        <button type="button" class="tab" data-day="day2" style="--accent:#3E6B99; --soft:rgba(62,107,153,0.09); --strong:rgba(62,107,153,0.20); --bd:rgba(62,107,153,0.45)">2일차 · 북부투어</button>
+        <button type="button" class="tab" data-day="day3" style="--accent:#8F3D5C; --soft:rgba(143,61,92,0.09); --strong:rgba(143,61,92,0.20); --bd:rgba(143,61,92,0.45)">3일차 · 스노클링·온천</button>
+        <button type="button" class="tab" data-day="day4" style="--accent:#52603F; --soft:rgba(82,96,63,0.09); --strong:rgba(82,96,63,0.20); --bd:rgba(82,96,63,0.45)">4일차 · 귀국</button>
+        <button type="button" class="tab tab-check" data-day="check" style="--accent:#141413; --soft:rgba(20,20,19,0.06); --strong:rgba(20,20,19,0.13); --bd:rgba(20,20,19,0.35)">사전 체크</button>
     </div>
   </nav>
 
