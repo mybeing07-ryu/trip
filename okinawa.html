@@ -78,6 +78,33 @@
   .desc { font-size: 14px; line-height: 1.75; color: #5E5D59; }
   .meta { font-size: 12.5px; line-height: 1.6; color: #5E5D59; margin-top: 8px; }
 
+  .time-row { display: flex; align-items: center; gap: 12px; margin-bottom: 5px; }
+  .time-row .time { margin-bottom: 0; }
+  .done {
+    margin-left: auto; display: inline-flex; align-items: center; gap: 7px;
+    min-height: 34px; padding: 0 10px; border-radius: 999px; cursor: pointer;
+    font-size: 11.5px; font-weight: 700; color: #5E5D59; border: 1px solid rgba(31,30,29,0.18);
+    background: #fff; user-select: none; flex-shrink: 0;
+  }
+  .done input { width: 15px; height: 15px; margin: 0; accent-color: var(--accent); cursor: pointer; }
+  .tl-item.is-done .done { background: var(--tint); border-color: var(--accent); color: var(--accent); }
+  .tl-item.is-done .dot { background: #FAF9F5; box-shadow: 0 0 0 4px #FAF9F5, inset 0 0 0 2px var(--accent); }
+  .tl-item.is-done .item-card { opacity: 0.55; }
+  .tl-item.is-done .title { text-decoration: line-through; text-decoration-color: rgba(31,30,29,0.35); }
+
+  .progress {
+    border-top: 1px solid rgba(31,30,29,0.15); border-bottom: 1px solid rgba(31,30,29,0.15);
+    padding: 16px 0 18px; margin: 0 0 30px;
+  }
+  .progress-head { display: flex; align-items: baseline; gap: 12px; margin-bottom: 10px; }
+  .progress-label { font-size: 11.5px; font-weight: 700; letter-spacing: 0.14em; color: #5E5D59; }
+  .progress-count { margin-left: auto; font-size: 13px; font-weight: 700; color: var(--accent); }
+  .progress-track { display: block; height: 6px; border-radius: 999px; background: rgba(31,30,29,0.09); overflow: hidden; }
+  .progress-fill { display: block; height: 100%; width: 0; background: var(--accent); border-radius: 999px; transition: width 0.25s ease; }
+  .progress .lnk-row { margin-top: 14px; }
+  .lnk.reset { cursor: pointer; color: #5E5D59; }
+  .lnk[aria-disabled="true"] { opacity: 0.45; pointer-events: none; }
+
   .lnk-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
   .lnk {
     display: inline-flex; align-items: center; min-height: 40px; padding: 0 16px;
@@ -126,7 +153,7 @@
     .tab.tab-check { margin-left: 0; }
   }
   @media print {
-    .tabbar, .lnk-row { display: none; }
+    .tabbar, .lnk-row, .done { display: none; }
     .day-panel.is-hidden { display: block; }
     body { background: #fff; }
   }
@@ -167,18 +194,30 @@
       <div class="day-inner">
         <div class="section-label"><span class="bar"></span><span class="lbl">1일차</span></div>
         <h2>공항 도착 &amp; 중부 차탄 드라이브</h2>
+        <div class="progress" data-day="day1">
+          <div class="progress-head">
+            <span class="progress-label">코스 진행</span>
+            <span class="progress-count" data-count="day1">0 / 6 완료</span>
+          </div>
+          <div class="progress-track"><span class="progress-fill" data-fill="day1" style="width:0%"></span></div>
+          <div class="lnk-row">
+            <a class="lnk" data-route="day1" href="https://www.google.com/maps/dir/?api=1&travelmode=driving&origin=26.2083403%2C127.650441&destination=26.5157192%2C127.9146881&waypoints=26.1765465%2C127.6404145%7C26.3158768%2C127.7540067%7C26.3166813%2C127.7583119" target="_blank" rel="noopener">남은 코스 동선 보기</a>
+            <a class="lnk" href="https://www.google.com/maps/dir/?api=1&travelmode=driving&origin=26.2083403%2C127.650441&destination=26.5157192%2C127.9146881&waypoints=26.1765465%2C127.6404145%7C26.3158768%2C127.7540067%7C26.3166813%2C127.7583119" target="_blank" rel="noopener">오늘 전체 동선</a>
+            <button type="button" class="lnk reset" data-reset="day1">체크 초기화</button>
+          </div>
+        </div>
         <div class="timeline">
-            <div class="tl-item"><span class="dot"></span><div class="item-card"><div class="time">11:40</div><div class="title">나하공항 도착</div><div class="desc">입국 수속 진행</div><div class="lnk-row"><a class="lnk" href="https://www.google.com/maps/dir/?api=1&amp;destination=%E9%82%A3%E8%A6%87%E7%A9%BA%E6%B8%AF" target="_blank" rel="noopener">길찾기</a></div></div></div>
-            <div class="tl-item"><span class="dot"></span><div class="item-card"><div class="time">12:40–13:40</div><div class="title">렌트카 인수</div><div class="desc">8인승 대형 승합차로 인수</div></div></div>
-            <div class="tl-item"><span class="dot"></span><div class="item-card hl"><div class="pick">대표 명소</div><div class="time">14:00–15:30</div><div class="title">세나가섬 우미카지 테라스 — 점심</div><div class="desc">바다 전망 계단식 상가에서 식사 (버거, 타코라이스, 오키나와 소바 등)</div><div class="meta">맵코드 33 002 602*06 · 무료 주차</div><div class="lnk-row"><a class="lnk" href="https://www.google.com/maps/dir/?api=1&amp;destination=%E7%80%AC%E9%95%B7%E5%B3%B6%E3%82%A6%E3%83%9F%E3%82%AB%E3%82%B8%E3%83%86%E3%83%A9%E3%82%B9" target="_blank" rel="noopener">길찾기</a><a class="lnk" href="tel:0988517446">전화 098-851-7446</a></div></div></div>
-            <div class="tl-item"><span class="dot"></span><div class="item-card"><div class="time">16:30–18:30</div><div class="title">차탄 선셋비치 &amp; 아메리칸 빌리지</div><div class="desc">노을 산책</div><div class="meta">맵코드 33 526 452*52 · 공용 무료 주차</div><div class="lnk-row"><a class="lnk" href="https://www.google.com/maps/dir/?api=1&amp;destination=%E7%BE%8E%E6%B5%9C%E3%82%A2%E3%83%A1%E3%83%AA%E3%82%AB%E3%83%B3%E3%83%93%E3%83%AC%E3%83%83%E3%82%B8" target="_blank" rel="noopener">길찾기</a><a class="lnk" href="tel:0989361234">전화 098-936-1234</a></div></div></div>
-            <div class="tl-item"><span class="dot"></span><div class="item-card"><div class="time">18:30–19:30</div><div class="title">저녁 — 얏빠리 스테이크 차탄 미하마점</div><div class="desc">가성비 좋은 두툼한 소고기 스테이크</div><div class="meta">맵코드 33 526 482*58 · 무료 주차</div><div class="lnk-row"><a class="lnk" href="https://www.google.com/maps/dir/?api=1&amp;destination=%E3%82%84%E3%81%A3%E3%81%B1%E3%82%8A%E3%82%B9%E3%83%86%E3%83%BC%E3%82%AD%20%E5%8C%97%E8%B0%B7%E7%BE%8E%E6%B5%9C%E5%BA%97" target="_blank" rel="noopener">길찾기</a><a class="lnk" href="tel:0989895439">전화 098-989-5439</a></div></div></div>
-            <div class="tl-item"><span class="dot"></span><div class="item-card"><div class="time">20:30</div><div class="title">1일차 숙소 체크인 (온나손 나카마 2288-44)</div><div class="desc">오시는 길 편의점(로손)에서 오리온 생맥주·하이볼·안주 사서 숙소 맥주 파티</div><div class="meta">맵코드 206 381 823*33</div><div class="lnk-row"><a class="lnk" href="https://www.google.com/maps/dir/?api=1&amp;destination=%E6%81%A9%E7%B4%8D%E6%9D%91%E4%BB%B2%E9%96%932288-44" target="_blank" rel="noopener">길찾기</a></div></div></div>
+            <div class="tl-item" data-key="day1-0"><span class="dot"></span><div class="item-card"><div class="time-row"><span class="time">11:40</span><label class="done"><input type="checkbox" class="done-box" data-key="day1-0"><span>완료</span></label></div><div class="title">나하공항 도착</div><div class="desc">입국 수속 진행</div><div class="lnk-row"><a class="lnk" href="https://www.google.com/maps/dir/?api=1&amp;destination=26.2083403%2C127.650441" target="_blank" rel="noopener">길찾기</a></div></div></div>
+            <div class="tl-item" data-key="day1-1"><span class="dot"></span><div class="item-card"><div class="time-row"><span class="time">12:40–13:40</span><label class="done"><input type="checkbox" class="done-box" data-key="day1-1"><span>완료</span></label></div><div class="title">렌트카 인수</div><div class="desc">8인승 대형 승합차로 인수</div></div></div>
+            <div class="tl-item" data-key="day1-2"><span class="dot"></span><div class="item-card hl"><div class="pick">대표 명소</div><div class="time-row"><span class="time">14:00–15:30</span><label class="done"><input type="checkbox" class="done-box" data-key="day1-2"><span>완료</span></label></div><div class="title">세나가섬 우미카지 테라스 — 점심</div><div class="desc">바다 전망 계단식 상가에서 식사 (버거, 타코라이스, 오키나와 소바 등)</div><div class="meta">맵코드 33 002 602*06 · 무료 주차</div><div class="lnk-row"><a class="lnk" href="https://www.google.com/maps/dir/?api=1&amp;destination=26.1765465%2C127.6404145" target="_blank" rel="noopener">길찾기</a><a class="lnk" href="tel:0988517446">전화 098-851-7446</a></div></div></div>
+            <div class="tl-item" data-key="day1-3"><span class="dot"></span><div class="item-card"><div class="time-row"><span class="time">16:30–18:30</span><label class="done"><input type="checkbox" class="done-box" data-key="day1-3"><span>완료</span></label></div><div class="title">차탄 선셋비치 &amp; 아메리칸 빌리지</div><div class="desc">노을 산책</div><div class="meta">맵코드 33 526 452*52 · 공용 무료 주차</div><div class="lnk-row"><a class="lnk" href="https://www.google.com/maps/dir/?api=1&amp;destination=26.3158768%2C127.7540067" target="_blank" rel="noopener">길찾기</a><a class="lnk" href="tel:0989361234">전화 098-936-1234</a></div></div></div>
+            <div class="tl-item" data-key="day1-4"><span class="dot"></span><div class="item-card"><div class="time-row"><span class="time">18:30–19:30</span><label class="done"><input type="checkbox" class="done-box" data-key="day1-4"><span>완료</span></label></div><div class="title">저녁 — 얏빠리 스테이크 차탄 미하마점</div><div class="desc">가성비 좋은 두툼한 소고기 스테이크</div><div class="meta">맵코드 33 526 482*58 · 무료 주차</div><div class="lnk-row"><a class="lnk" href="https://www.google.com/maps/dir/?api=1&amp;destination=26.3166813%2C127.7583119" target="_blank" rel="noopener">길찾기</a><a class="lnk" href="tel:0989895439">전화 098-989-5439</a></div></div></div>
+            <div class="tl-item" data-key="day1-5"><span class="dot"></span><div class="item-card"><div class="time-row"><span class="time">20:30</span><label class="done"><input type="checkbox" class="done-box" data-key="day1-5"><span>완료</span></label></div><div class="title">1일차 숙소 체크인 (온나손 나카마 2288-44)</div><div class="desc">오시는 길 편의점(로손)에서 오리온 생맥주·하이볼·안주 사서 숙소 맥주 파티</div><div class="meta">맵코드 206 381 823*33 · 구글맵 링크는 仲間 지역 기준(정확한 위치는 맵코드 사용)</div><div class="lnk-row"><a class="lnk" href="https://www.google.com/maps/dir/?api=1&amp;destination=26.5157192%2C127.9146881" target="_blank" rel="noopener">길찾기</a></div></div></div>
         </div>
         <div class="plan-b">
           <div class="section-label"><span class="bar"></span><span class="lbl plain">PLAN B · 대체 코스</span></div>
           <p class="alt-note">차탄에서 온나 숙소로 올라가는 58번 국도 라인 위에 있는 곳들입니다. 비행기 지연이나 렌트카 인수 지연으로 일정이 밀릴 때 빼거나 바꿔 넣기 좋습니다.</p>
-          <div class="alt-grid"><div class="alt-card"><div class="alt-name">아라하 비치 (차탄)</div><div class="alt-why">아메리칸 빌리지에서 차로 5분. 선셋비치가 붐비면 한적하게 노을 보기 좋은 대안.</div><div class="alt-meta">무료 주차 · 유영 4~10월</div><div class="lnk-row"><a class="lnk" href="https://www.google.com/maps/dir/?api=1&amp;destination=%E3%82%A2%E3%83%A9%E3%83%8F%E3%83%93%E3%83%BC%E3%83%81%20%E5%8C%97%E8%B0%B7" target="_blank" rel="noopener">길찾기</a><a class="lnk" href="tel:0989262680">전화 098-926-2680</a></div></div><div class="alt-card"><div class="alt-name">도로의 역 카데나</div><div class="alt-why">58번 국도변 휴게소. 전망대에서 가데나 미군기지 활주로를 내려다볼 수 있어 15분이면 충분.</div><div class="alt-meta">무료 주차 91대</div><div class="lnk-row"><a class="lnk" href="https://www.google.com/maps/dir/?api=1&amp;destination=%E9%81%93%E3%81%AE%E9%A7%85%E3%81%8B%E3%81%A7%E3%81%AA" target="_blank" rel="noopener">길찾기</a><a class="lnk" href="tel:0989575678">전화 098-957-5678</a></div></div><div class="alt-card"><div class="alt-name">자키미 성터 (요미탄)</div><div class="alt-why">세계유산 구스쿠. 차탄 → 온나 이동 중 들러 30분이면 성벽 산책 완료.</div><div class="alt-meta">맵코드 33 854 486*41 · 9:00~18:00 · 입장 무료</div><div class="lnk-row"><a class="lnk" href="https://www.google.com/maps/dir/?api=1&amp;destination=%E5%BA%A7%E5%96%9C%E5%91%B3%E5%9F%8E%E8%B7%A1" target="_blank" rel="noopener">길찾기</a></div></div></div>
+          <div class="alt-grid"><div class="alt-card"><div class="alt-name">아라하 비치 (차탄)</div><div class="alt-why">아메리칸 빌리지에서 차로 5분. 선셋비치가 붐비면 한적하게 노을 보기 좋은 대안.</div><div class="alt-meta">무료 주차 · 유영 4~10월</div><div class="lnk-row"><a class="lnk" href="https://www.google.com/maps/dir/?api=1&amp;destination=26.3041875%2C127.7585625" target="_blank" rel="noopener">길찾기</a><a class="lnk" href="tel:0989262680">전화 098-926-2680</a></div></div><div class="alt-card"><div class="alt-name">도로의 역 카데나</div><div class="alt-why">58번 국도변 휴게소. 전망대에서 가데나 미군기지 활주로를 내려다볼 수 있어 15분이면 충분.</div><div class="alt-meta">무료 주차 91대</div><div class="lnk-row"><a class="lnk" href="https://www.google.com/maps/dir/?api=1&amp;destination=26.367881%2C127.774187" target="_blank" rel="noopener">길찾기</a><a class="lnk" href="tel:0989575678">전화 098-957-5678</a></div></div><div class="alt-card"><div class="alt-name">자키미 성터 (요미탄)</div><div class="alt-why">세계유산 구스쿠. 차탄 → 온나 이동 중 들러 30분이면 성벽 산책 완료.</div><div class="alt-meta">맵코드 33 854 486*41 · 9:00~18:00 · 입장 무료</div><div class="lnk-row"><a class="lnk" href="https://www.google.com/maps/dir/?api=1&amp;destination=26.4083982%2C127.7417305" target="_blank" rel="noopener">길찾기</a></div></div></div>
         </div>
       </div>
     </section>
@@ -186,18 +225,30 @@
       <div class="day-inner">
         <div class="section-label"><span class="bar"></span><span class="lbl">2일차</span></div>
         <h2>북부 핵심 투어 (만좌모·수족관·고우리)</h2>
+        <div class="progress" data-day="day2">
+          <div class="progress-head">
+            <span class="progress-label">코스 진행</span>
+            <span class="progress-count" data-count="day2">0 / 6 완료</span>
+          </div>
+          <div class="progress-track"><span class="progress-fill" data-fill="day2" style="width:0%"></span></div>
+          <div class="lnk-row">
+            <a class="lnk" data-route="day2" href="https://www.google.com/maps/dir/?api=1&travelmode=driving&origin=26.5052353%2C127.8504781&destination=26.6946871%2C128.0210625&waypoints=26.6209963%2C127.9636717%7C26.694338%2C127.8780131" target="_blank" rel="noopener">남은 코스 동선 보기</a>
+            <a class="lnk" href="https://www.google.com/maps/dir/?api=1&travelmode=driving&origin=26.5052353%2C127.8504781&destination=26.6946871%2C128.0210625&waypoints=26.6209963%2C127.9636717%7C26.694338%2C127.8780131" target="_blank" rel="noopener">오늘 전체 동선</a>
+            <button type="button" class="lnk reset" data-reset="day2">체크 초기화</button>
+          </div>
+        </div>
         <div class="timeline">
-            <div class="tl-item"><span class="dot"></span><div class="item-card"><div class="time">10:00</div><div class="title">숙소 출발 → 만좌모 이동</div><div class="desc">차로 약 15~20분</div></div></div>
-            <div class="tl-item"><span class="dot"></span><div class="item-card hl"><div class="pick">대표 명소</div><div class="time">10:20–11:30</div><div class="title">만좌모</div><div class="desc">코끼리 바위 절벽 산책</div><div class="meta">맵코드 206 312 039*55 · 대형 주차장</div><div class="lnk-row"><a class="lnk" href="https://www.google.com/maps/dir/?api=1&amp;destination=%E4%B8%87%E5%BA%A7%E6%AF%9B" target="_blank" rel="noopener">길찾기</a><a class="lnk" href="tel:0989661211">전화 098-966-1211</a></div></div></div>
-            <div class="tl-item"><span class="dot"></span><div class="item-card"><div class="time">12:30–14:00</div><div class="title">점심 — 백년고가 우후야(大家)</div><div class="desc">100년 된 류큐 가옥과 폭포 보며 먹는 흑돼지(아구) 돈카츠 &amp; 소바. 런치 11:00~16:30(L.O 16:00), 예약 권장</div><div class="meta">맵코드 206 745 056*82 · 무료 주차</div><div class="lnk-row"><a class="lnk" href="https://www.google.com/maps/dir/?api=1&amp;destination=%E7%99%BE%E5%B9%B4%E5%8F%A4%E5%AE%B6%20%E5%A4%A7%E5%AE%B6%20%E5%90%8D%E8%AD%B7" target="_blank" rel="noopener">길찾기</a><a class="lnk" href="tel:0980530280">전화 0980-53-0280</a></div></div></div>
-            <div class="tl-item"><span class="dot"></span><div class="item-card hl"><div class="pick">대표 명소</div><div class="time">14:30–17:00</div><div class="title">츄라우미 수족관 &amp; 에메랄드 비치</div><div class="desc">고래상어 대형 수조 및 해변 산책 (P7 중앙 주차장 이용)</div><div class="meta">맵코드 553 075 797*77 · 공용 주차장</div><div class="lnk-row"><a class="lnk" href="https://www.google.com/maps/dir/?api=1&amp;destination=%E6%B2%96%E7%B8%84%E7%BE%8E%E3%82%89%E6%B5%B7%E6%B0%B4%E6%97%8F%E9%A4%A8" target="_blank" rel="noopener">길찾기</a><a class="lnk" href="tel:0980483748">전화 0980-48-3748</a></div></div></div>
-            <div class="tl-item"><span class="dot"></span><div class="item-card"><div class="time">17:30–18:30</div><div class="title">고우리 대교 &amp; 고우리 비치</div><div class="desc">해안 드라이브 &amp; 노을</div><div class="meta">맵코드 485 692 181*00 · 해변 무료 주차</div><div class="lnk-row"><a class="lnk" href="https://www.google.com/maps/dir/?api=1&amp;destination=%E5%8F%A4%E5%AE%87%E5%88%A9%E3%83%93%E3%83%BC%E3%83%81" target="_blank" rel="noopener">길찾기</a></div></div></div>
-            <div class="tl-item"><span class="dot"></span><div class="item-card"><div class="time">19:30–21:00</div><div class="title">저녁 식사 후 숙소 복귀</div><div class="desc">숙소에서 뒤풀이</div></div></div>
+            <div class="tl-item" data-key="day2-0"><span class="dot"></span><div class="item-card"><div class="time-row"><span class="time">10:00</span><label class="done"><input type="checkbox" class="done-box" data-key="day2-0"><span>완료</span></label></div><div class="title">숙소 출발 → 만좌모 이동</div><div class="desc">차로 약 15~20분</div></div></div>
+            <div class="tl-item" data-key="day2-1"><span class="dot"></span><div class="item-card hl"><div class="pick">대표 명소</div><div class="time-row"><span class="time">10:20–11:30</span><label class="done"><input type="checkbox" class="done-box" data-key="day2-1"><span>완료</span></label></div><div class="title">만좌모</div><div class="desc">코끼리 바위 절벽 산책</div><div class="meta">맵코드 206 312 039*55 · 대형 주차장</div><div class="lnk-row"><a class="lnk" href="https://www.google.com/maps/dir/?api=1&amp;destination=26.5052353%2C127.8504781" target="_blank" rel="noopener">길찾기</a><a class="lnk" href="tel:0989661211">전화 098-966-1211</a></div></div></div>
+            <div class="tl-item" data-key="day2-2"><span class="dot"></span><div class="item-card"><div class="time-row"><span class="time">12:30–14:00</span><label class="done"><input type="checkbox" class="done-box" data-key="day2-2"><span>완료</span></label></div><div class="title">점심 — 백년고가 우후야(大家)</div><div class="desc">100년 된 류큐 가옥과 폭포 보며 먹는 흑돼지(아구) 돈카츠 &amp; 소바. 런치 11:00~16:30(L.O 16:00), 예약 권장</div><div class="meta">맵코드 206 745 056*82 · 무료 주차</div><div class="lnk-row"><a class="lnk" href="https://www.google.com/maps/dir/?api=1&amp;destination=26.6209963%2C127.9636717" target="_blank" rel="noopener">길찾기</a><a class="lnk" href="tel:0980530280">전화 0980-53-0280</a></div></div></div>
+            <div class="tl-item" data-key="day2-3"><span class="dot"></span><div class="item-card hl"><div class="pick">대표 명소</div><div class="time-row"><span class="time">14:30–17:00</span><label class="done"><input type="checkbox" class="done-box" data-key="day2-3"><span>완료</span></label></div><div class="title">츄라우미 수족관 &amp; 에메랄드 비치</div><div class="desc">고래상어 대형 수조 및 해변 산책 (P7 중앙 주차장 이용)</div><div class="meta">맵코드 553 075 797*77 · 공용 주차장</div><div class="lnk-row"><a class="lnk" href="https://www.google.com/maps/dir/?api=1&amp;destination=26.694338%2C127.8780131" target="_blank" rel="noopener">길찾기</a><a class="lnk" href="tel:0980483748">전화 0980-48-3748</a></div></div></div>
+            <div class="tl-item" data-key="day2-4"><span class="dot"></span><div class="item-card"><div class="time-row"><span class="time">17:30–18:30</span><label class="done"><input type="checkbox" class="done-box" data-key="day2-4"><span>완료</span></label></div><div class="title">고우리 대교 &amp; 고우리 비치</div><div class="desc">해안 드라이브 &amp; 노을</div><div class="meta">맵코드 485 692 181*00 · 해변 무료 주차</div><div class="lnk-row"><a class="lnk" href="https://www.google.com/maps/dir/?api=1&amp;destination=26.6946871%2C128.0210625" target="_blank" rel="noopener">길찾기</a></div></div></div>
+            <div class="tl-item" data-key="day2-5"><span class="dot"></span><div class="item-card"><div class="time-row"><span class="time">19:30–21:00</span><label class="done"><input type="checkbox" class="done-box" data-key="day2-5"><span>완료</span></label></div><div class="title">저녁 식사 후 숙소 복귀</div><div class="desc">숙소에서 뒤풀이</div></div></div>
         </div>
         <div class="plan-b">
           <div class="section-label"><span class="bar"></span><span class="lbl plain">PLAN B · 대체 코스</span></div>
           <p class="alt-note">모토부·나키진 반도 안에 모여 있어 수족관 → 고우리 동선에서 거의 우회 없이 넣을 수 있습니다. 수족관에서 시간이 남거나, 비가 와서 해변이 아쉬울 때 유용합니다.</p>
-          <div class="alt-grid"><div class="alt-card"><div class="alt-name">비세 후쿠기 가로수길</div><div class="alt-why">츄라우미 수족관에서 차로 약 5분. 방풍림 사이를 걷는 30분 산책 코스.</div><div class="alt-meta">맵코드 553 105 807*43 · 소요 30분 내외</div><div class="lnk-row"><a class="lnk" href="https://www.google.com/maps/dir/?api=1&amp;destination=%E5%82%99%E7%80%AC%E3%81%AE%E3%83%95%E3%82%AF%E3%82%AE%E4%B8%A6%E6%9C%A8" target="_blank" rel="noopener">길찾기</a></div></div><div class="alt-card"><div class="alt-name">나키진 성터</div><div class="alt-why">수족관에서 고우리로 가는 길목의 세계유산. 성벽 위에서 동중국해 조망.</div><div class="alt-meta">맵코드 553 081 497*30 · 8:00~18:00(5~8월 19:00) · 600엔 · 무료 주차</div><div class="lnk-row"><a class="lnk" href="https://www.google.com/maps/dir/?api=1&amp;destination=%E4%BB%8A%E5%B8%B0%E4%BB%81%E5%9F%8E%E8%B7%A1" target="_blank" rel="noopener">길찾기</a></div></div><div class="alt-card"><div class="alt-name">코우리 오션타워</div><div class="alt-why">고우리 비치 바로 위 전망대. 비가 오거나 바람 불 때 실내 대안.</div><div class="alt-meta">맵코드 485 693 485*14 · 9:00~18:00 · 800엔</div><div class="lnk-row"><a class="lnk" href="https://www.google.com/maps/dir/?api=1&amp;destination=%E5%8F%A4%E5%AE%87%E5%88%A9%E3%82%AA%E3%83%BC%E3%82%B7%E3%83%A3%E3%83%B3%E3%82%BF%E3%83%AF%E3%83%BC" target="_blank" rel="noopener">길찾기</a></div></div></div>
+          <div class="alt-grid"><div class="alt-card"><div class="alt-name">비세 후쿠기 가로수길</div><div class="alt-why">츄라우미 수족관에서 차로 약 5분. 방풍림 사이를 걷는 30분 산책 코스.</div><div class="alt-meta">맵코드 553 105 807*43 · 소요 30분 내외</div><div class="lnk-row"><a class="lnk" href="https://www.google.com/maps/dir/?api=1&amp;destination=26.7015874%2C127.8802247" target="_blank" rel="noopener">길찾기</a></div></div><div class="alt-card"><div class="alt-name">나키진 성터</div><div class="alt-why">수족관에서 고우리로 가는 길목의 세계유산. 성벽 위에서 동중국해 조망.</div><div class="alt-meta">맵코드 553 081 497*30 · 8:00~18:00(5~8월 19:00) · 600엔 · 무료 주차</div><div class="lnk-row"><a class="lnk" href="https://www.google.com/maps/dir/?api=1&amp;destination=26.6912793%2C127.9290226" target="_blank" rel="noopener">길찾기</a></div></div><div class="alt-card"><div class="alt-name">코우리 오션타워</div><div class="alt-why">고우리 비치 바로 위 전망대. 비가 오거나 바람 불 때 실내 대안.</div><div class="alt-meta">맵코드 485 693 485*14 · 9:00~18:00 · 800엔</div><div class="lnk-row"><a class="lnk" href="https://www.google.com/maps/dir/?api=1&amp;destination=26.7005006%2C128.024206" target="_blank" rel="noopener">길찾기</a></div></div></div>
         </div>
       </div>
     </section>
@@ -205,20 +256,32 @@
       <div class="day-inner">
         <div class="section-label"><span class="bar"></span><span class="lbl">3일차</span></div>
         <h2>스노클링·슈리성·온천 &amp; 나하 이동</h2>
+        <div class="progress" data-day="day3">
+          <div class="progress-head">
+            <span class="progress-label">코스 진행</span>
+            <span class="progress-count" data-count="day3">0 / 8 완료</span>
+          </div>
+          <div class="progress-track"><span class="progress-fill" data-fill="day3" style="width:0%"></span></div>
+          <div class="lnk-row">
+            <a class="lnk" data-route="day3" href="https://www.google.com/maps/dir/?api=1&travelmode=driving&origin=26.4450613%2C127.7714252&destination=26.2151469%2C127.684745&waypoints=26.515048%2C127.916803%7C26.2178698%2C127.7174974%7C26.1762473%2C127.6415373%7C26.1777166%2C127.6541448%7C26.2145419%2C127.6834593" target="_blank" rel="noopener">남은 코스 동선 보기</a>
+            <a class="lnk" href="https://www.google.com/maps/dir/?api=1&travelmode=driving&origin=26.4450613%2C127.7714252&destination=26.2151469%2C127.684745&waypoints=26.515048%2C127.916803%7C26.2178698%2C127.7174974%7C26.1762473%2C127.6415373%7C26.1777166%2C127.6541448%7C26.2145419%2C127.6834593" target="_blank" rel="noopener">오늘 전체 동선</a>
+            <button type="button" class="lnk reset" data-reset="day3">체크 초기화</button>
+          </div>
+        </div>
         <div class="timeline">
-            <div class="tl-item"><span class="dot"></span><div class="item-card"><div class="time">09:15</div><div class="title">1일차 숙소 체크아웃 후 출발</div><div class="desc">차로 약 30분</div></div></div>
-            <div class="tl-item"><span class="dot"></span><div class="item-card hl"><div class="pick">대표 명소</div><div class="time">10:00–12:00</div><div class="title">마에다 곶 — 푸른동굴 스노클링</div><div class="desc">오키나와 대표 해양 액티비티 (샤워 및 정리 시간 포함)</div><div class="meta">맵코드 206 062 685*71 · 유료 주차</div><div class="lnk-row"><a class="lnk" href="https://www.google.com/maps/dir/?api=1&amp;destination=%E7%9C%9F%E6%A0%84%E7%94%B0%E5%B2%AC" target="_blank" rel="noopener">길찾기</a><a class="lnk" href="tel:0989825339">전화 098-982-5339</a></div></div></div>
-            <div class="tl-item"><span class="dot"></span><div class="item-card"><div class="time">12:30–13:40</div><div class="title">점심 — 킨치치 소바 온나점</div><div class="desc">현지인 추천 진한 육수의 오키나와 소바 &amp; 매콤한 츠케소바</div><div class="meta">맵코드 206 036 848*44 · 무료 주차</div><div class="lnk-row"><a class="lnk" href="https://www.google.com/maps/dir/?api=1&amp;destination=%E9%87%91%E6%9C%88%E3%81%9D%E3%81%B0%20%E6%81%A9%E7%B4%8D%E5%BA%97" target="_blank" rel="noopener">길찾기</a><a class="lnk" href="tel:0989893882">전화 098-989-3882</a></div></div></div>
-            <div class="tl-item"><span class="dot"></span><div class="item-card hl"><div class="pick">대표 명소</div><div class="time">14:30–16:00</div><div class="title">슈리성 공원</div><div class="desc">류큐 왕국의 역사 유적지 산책 및 성곽 탐방</div><div class="meta">맵코드 33 161 526*71 · 지하 유료 주차</div><div class="lnk-row"><a class="lnk" href="https://www.google.com/maps/dir/?api=1&amp;destination=%E9%A6%96%E9%87%8C%E5%9F%8E%E5%85%AC%E5%9C%92" target="_blank" rel="noopener">길찾기</a><a class="lnk" href="tel:0988862020">전화 098-886-2020</a></div></div></div>
-            <div class="tl-item"><span class="dot"></span><div class="item-card"><div class="time">16:40–18:30</div><div class="title">류큐 온센 세나가지마 (류진노유)</div><div class="desc">바다 전망 노천탕에서 비행기 이착륙 보며 스노클링 피로 해소</div><div class="meta">맵코드 33 002 505*71 · 대형 무료 주차</div><div class="lnk-row"><a class="lnk" href="https://www.google.com/maps/dir/?api=1&amp;destination=%E7%90%89%E7%90%83%E6%B8%A9%E6%B3%89%20%E9%BE%8D%E7%A5%9E%E3%81%AE%E6%B9%AF" target="_blank" rel="noopener">길찾기</a><a class="lnk" href="tel:0988517077">전화 098-851-7077</a></div></div></div>
-            <div class="tl-item"><span class="dot"></span><div class="item-card"><div class="time">19:00–20:30</div><div class="title">저녁 — 샘스 바이더씨</div><div class="desc">정통 미국식 스테이크. ※ 지점 확인 필요 — 동선상 가까운 곳은 나하점(那覇市具志3-25-5)</div><div class="meta">맵코드 33 564 340*63 · 무료 주차 · 원본 일정 번호 098-939-3800</div><div class="lnk-row"><a class="lnk" href="https://www.google.com/maps/dir/?api=1&amp;destination=%E3%82%B5%E3%83%A0%E3%82%BA%E3%83%90%E3%82%A4%E3%82%B6%E3%82%B7%E3%83%BC%20%E9%82%A3%E8%A6%87%E5%BA%97" target="_blank" rel="noopener">길찾기</a><a class="lnk" href="tel:0988570339">전화 098-857-0339</a></div></div></div>
-            <div class="tl-item"><span class="dot"></span><div class="item-card"><div class="time">21:00</div><div class="title">3일차 나하 숙소 체크인 (마츠오 1-4-5)</div><div class="meta">맵코드 33 156 242*41 · 숙소 부근 코인 파킹</div><div class="lnk-row"><a class="lnk" href="https://www.google.com/maps/dir/?api=1&amp;destination=%E9%82%A3%E8%A6%87%E5%B8%82%E6%9D%BE%E5%B0%BE1-4-5" target="_blank" rel="noopener">길찾기</a></div></div></div>
-            <div class="tl-item"><span class="dot"></span><div class="item-card"><div class="time">21:30~</div><div class="title">국제거리 술집 투어</div><div class="desc">차는 주차장에 두고 전원 국제거리 포차거리·이자카야에서 밤문화 즐기기</div><div class="lnk-row"><a class="lnk" href="https://www.google.com/maps/dir/?api=1&amp;destination=%E5%9B%BD%E9%9A%9B%E9%80%9A%E3%82%8A%20%E9%82%A3%E8%A6%87" target="_blank" rel="noopener">길찾기</a></div></div></div>
+            <div class="tl-item" data-key="day3-0"><span class="dot"></span><div class="item-card"><div class="time-row"><span class="time">09:15</span><label class="done"><input type="checkbox" class="done-box" data-key="day3-0"><span>완료</span></label></div><div class="title">1일차 숙소 체크아웃 후 출발</div><div class="desc">차로 약 30분</div></div></div>
+            <div class="tl-item" data-key="day3-1"><span class="dot"></span><div class="item-card hl"><div class="pick">대표 명소</div><div class="time-row"><span class="time">10:00–12:00</span><label class="done"><input type="checkbox" class="done-box" data-key="day3-1"><span>완료</span></label></div><div class="title">마에다 곶 — 푸른동굴 스노클링</div><div class="desc">오키나와 대표 해양 액티비티 (샤워 및 정리 시간 포함)</div><div class="meta">맵코드 206 062 685*71 · 유료 주차</div><div class="lnk-row"><a class="lnk" href="https://www.google.com/maps/dir/?api=1&amp;destination=26.4450613%2C127.7714252" target="_blank" rel="noopener">길찾기</a><a class="lnk" href="tel:0989825339">전화 098-982-5339</a></div></div></div>
+            <div class="tl-item" data-key="day3-2"><span class="dot"></span><div class="item-card"><div class="time-row"><span class="time">12:30–13:40</span><label class="done"><input type="checkbox" class="done-box" data-key="day3-2"><span>완료</span></label></div><div class="title">점심 — 킨치치 소바 온나점</div><div class="desc">현지인 추천 진한 육수의 오키나와 소바 &amp; 매콤한 츠케소바</div><div class="meta">맵코드 206 036 848*44 · 무료 주차</div><div class="lnk-row"><a class="lnk" href="https://www.google.com/maps/dir/?api=1&amp;destination=26.515048%2C127.916803" target="_blank" rel="noopener">길찾기</a><a class="lnk" href="tel:0989893882">전화 098-989-3882</a></div></div></div>
+            <div class="tl-item" data-key="day3-3"><span class="dot"></span><div class="item-card hl"><div class="pick">대표 명소</div><div class="time-row"><span class="time">14:30–16:00</span><label class="done"><input type="checkbox" class="done-box" data-key="day3-3"><span>완료</span></label></div><div class="title">슈리성 공원</div><div class="desc">류큐 왕국의 역사 유적지 산책 및 성곽 탐방</div><div class="meta">맵코드 33 161 526*71 · 지하 유료 주차</div><div class="lnk-row"><a class="lnk" href="https://www.google.com/maps/dir/?api=1&amp;destination=26.2178698%2C127.7174974" target="_blank" rel="noopener">길찾기</a><a class="lnk" href="tel:0988862020">전화 098-886-2020</a></div></div></div>
+            <div class="tl-item" data-key="day3-4"><span class="dot"></span><div class="item-card"><div class="time-row"><span class="time">16:40–18:30</span><label class="done"><input type="checkbox" class="done-box" data-key="day3-4"><span>완료</span></label></div><div class="title">류큐 온센 세나가지마 (류진노유)</div><div class="desc">바다 전망 노천탕에서 비행기 이착륙 보며 스노클링 피로 해소</div><div class="meta">맵코드 33 002 505*71 · 대형 무료 주차</div><div class="lnk-row"><a class="lnk" href="https://www.google.com/maps/dir/?api=1&amp;destination=26.1762473%2C127.6415373" target="_blank" rel="noopener">길찾기</a><a class="lnk" href="tel:0988517077">전화 098-851-7077</a></div></div></div>
+            <div class="tl-item" data-key="day3-5"><span class="dot"></span><div class="item-card"><div class="time-row"><span class="time">19:00–20:30</span><label class="done"><input type="checkbox" class="done-box" data-key="day3-5"><span>완료</span></label></div><div class="title">저녁 — 샘스 바이더씨</div><div class="desc">정통 미국식 스테이크. ※ 지점 확인 필요 — 동선상 가까운 곳은 나하점(那覇市具志3-25-5)</div><div class="meta">맵코드 33 564 340*63 · 무료 주차 · 원본 일정 번호 098-939-3800</div><div class="lnk-row"><a class="lnk" href="https://www.google.com/maps/dir/?api=1&amp;destination=26.1777166%2C127.6541448" target="_blank" rel="noopener">길찾기</a><a class="lnk" href="tel:0988570339">전화 098-857-0339</a></div></div></div>
+            <div class="tl-item" data-key="day3-6"><span class="dot"></span><div class="item-card"><div class="time-row"><span class="time">21:00</span><label class="done"><input type="checkbox" class="done-box" data-key="day3-6"><span>완료</span></label></div><div class="title">3일차 나하 숙소 체크인 (마츠오 1-4-5)</div><div class="meta">맵코드 33 156 242*41 · 숙소 부근 코인 파킹</div><div class="lnk-row"><a class="lnk" href="https://www.google.com/maps/dir/?api=1&amp;destination=26.2145419%2C127.6834593" target="_blank" rel="noopener">길찾기</a></div></div></div>
+            <div class="tl-item" data-key="day3-7"><span class="dot"></span><div class="item-card"><div class="time-row"><span class="time">21:30~</span><label class="done"><input type="checkbox" class="done-box" data-key="day3-7"><span>완료</span></label></div><div class="title">국제거리 술집 투어</div><div class="desc">차는 주차장에 두고 전원 국제거리 포차거리·이자카야에서 밤문화 즐기기</div><div class="lnk-row"><a class="lnk" href="https://www.google.com/maps/dir/?api=1&amp;destination=26.2151469%2C127.684745" target="_blank" rel="noopener">길찾기</a></div></div></div>
         </div>
         <div class="plan-b">
           <div class="section-label"><span class="bar"></span><span class="lbl plain">PLAN B · 대체 코스</span></div>
           <p class="alt-note">푸른동굴은 파도·기상으로 취소되는 날이 있습니다. 취소 시 온나에서 바로 대체할 곳과, 슈리성 전후로 붙이기 좋은 곳을 함께 담았습니다.</p>
-          <div class="alt-grid"><div class="alt-card"><div class="alt-name">류큐무라 (온나)</div><div class="alt-why">스노클링이 취소될 때 같은 온나 지역의 실내형 대안. 에이사 공연 1일 4회.</div><div class="alt-meta">맵코드 206 033 067*33 · 9:30~17:00 · 2,000엔 · 무료 주차</div><div class="lnk-row"><a class="lnk" href="https://www.google.com/maps/dir/?api=1&amp;destination=%E7%90%89%E7%90%83%E6%9D%91" target="_blank" rel="noopener">길찾기</a><a class="lnk" href="tel:0989651234">전화 098-965-1234</a></div></div><div class="alt-card"><div class="alt-name">시키나엔</div><div class="alt-why">슈리성에서 차로 약 10분. 류큐 왕가 별장 정원으로 세계유산. 45분~1시간.</div><div class="alt-meta">맵코드 33 131 031*46 · 400엔 · 수요일 휴무 · 무료 주차 65대</div><div class="lnk-row"><a class="lnk" href="https://www.google.com/maps/dir/?api=1&amp;destination=%E8%AD%98%E5%90%8D%E5%9C%92" target="_blank" rel="noopener">길찾기</a><a class="lnk" href="tel:0988555936">전화 098-855-5936</a></div></div><div class="alt-card"><div class="alt-name">츠보야 야치문 거리</div><div class="alt-why">국제거리 남쪽 끝에서 도보 5~10분. 도자기 골목과 공설시장 구경, 차 없이 이동.</div><div class="alt-meta">도보 이동 · 주차 불필요 · 술집 투어 전 코스로</div><div class="lnk-row"><a class="lnk" href="https://www.google.com/maps/dir/?api=1&amp;destination=%E5%A3%BA%E5%B1%8B%E3%82%84%E3%81%A1%E3%82%80%E3%82%93%E9%80%9A%E3%82%8A" target="_blank" rel="noopener">길찾기</a></div></div></div>
+          <div class="alt-grid"><div class="alt-card"><div class="alt-name">류큐무라 (온나)</div><div class="alt-why">스노클링이 취소될 때 같은 온나 지역의 실내형 대안. 에이사 공연 1일 4회.</div><div class="alt-meta">맵코드 206 033 067*33 · 9:30~17:00 · 2,000엔 · 무료 주차</div><div class="lnk-row"><a class="lnk" href="https://www.google.com/maps/dir/?api=1&amp;destination=26.429469%2C127.775259" target="_blank" rel="noopener">길찾기</a><a class="lnk" href="tel:0989651234">전화 098-965-1234</a></div></div><div class="alt-card"><div class="alt-name">시키나엔</div><div class="alt-why">슈리성에서 차로 약 10분. 류큐 왕가 별장 정원으로 세계유산. 45분~1시간.</div><div class="alt-meta">맵코드 33 131 031*46 · 400엔 · 수요일 휴무 · 무료 주차 65대</div><div class="lnk-row"><a class="lnk" href="https://www.google.com/maps/dir/?api=1&amp;destination=26.2050722%2C127.7150398" target="_blank" rel="noopener">길찾기</a><a class="lnk" href="tel:0988555936">전화 098-855-5936</a></div></div><div class="alt-card"><div class="alt-name">츠보야 야치문 거리</div><div class="alt-why">국제거리 남쪽 끝에서 도보 5~10분. 도자기 골목과 공설시장 구경, 차 없이 이동.</div><div class="alt-meta">도보 이동 · 주차 불필요 · 술집 투어 전 코스로</div><div class="lnk-row"><a class="lnk" href="https://www.google.com/maps/dir/?api=1&amp;destination=26.212885%2C127.6918486" target="_blank" rel="noopener">길찾기</a></div></div></div>
         </div>
       </div>
     </section>
@@ -226,16 +289,28 @@
       <div class="day-inner">
         <div class="section-label"><span class="bar"></span><span class="lbl">4일차</span></div>
         <h2>체크아웃 &amp; 렌트카 반납 &amp; 귀국</h2>
+        <div class="progress" data-day="day4">
+          <div class="progress-head">
+            <span class="progress-label">코스 진행</span>
+            <span class="progress-count" data-count="day4">0 / 4 완료</span>
+          </div>
+          <div class="progress-track"><span class="progress-fill" data-fill="day4" style="width:0%"></span></div>
+          <div class="lnk-row">
+            <a class="lnk" data-route="day4" href="https://www.google.com/maps/search/?api=1&query=26.2083403%2C127.650441" target="_blank" rel="noopener">남은 코스 동선 보기</a>
+            <a class="lnk" href="https://www.google.com/maps/search/?api=1&query=26.2083403%2C127.650441" target="_blank" rel="noopener">오늘 전체 동선</a>
+            <button type="button" class="lnk reset" data-reset="day4">체크 초기화</button>
+          </div>
+        </div>
         <div class="timeline">
-            <div class="tl-item"><span class="dot"></span><div class="item-card"><div class="time">10:00</div><div class="title">숙소 체크아웃 → 렌트카 영업소로 출발</div><div class="desc">차로 약 15~20분 소요</div></div></div>
-            <div class="tl-item"><span class="dot"></span><div class="item-card"><div class="time">10:30–11:00</div><div class="title">렌트카 반납</div><div class="desc">주유 만탱크 확인 후 차량 반납 (영수증 보관)</div></div></div>
-            <div class="tl-item"><span class="dot"></span><div class="item-card"><div class="time">11:00–11:30</div><div class="title">렌트카 셔틀버스 이동</div><div class="desc">나하공항으로 이동</div></div></div>
-            <div class="tl-item"><span class="dot"></span><div class="item-card"><div class="time">11:30~</div><div class="title">나하공항 출국 수속 &amp; 귀국</div><div class="lnk-row"><a class="lnk" href="https://www.google.com/maps/dir/?api=1&amp;destination=%E9%82%A3%E8%A6%87%E7%A9%BA%E6%B8%AF" target="_blank" rel="noopener">길찾기</a></div></div></div>
+            <div class="tl-item" data-key="day4-0"><span class="dot"></span><div class="item-card"><div class="time-row"><span class="time">10:00</span><label class="done"><input type="checkbox" class="done-box" data-key="day4-0"><span>완료</span></label></div><div class="title">숙소 체크아웃 → 렌트카 영업소로 출발</div><div class="desc">차로 약 15~20분 소요</div></div></div>
+            <div class="tl-item" data-key="day4-1"><span class="dot"></span><div class="item-card"><div class="time-row"><span class="time">10:30–11:00</span><label class="done"><input type="checkbox" class="done-box" data-key="day4-1"><span>완료</span></label></div><div class="title">렌트카 반납</div><div class="desc">주유 만탱크 확인 후 차량 반납 (영수증 보관)</div></div></div>
+            <div class="tl-item" data-key="day4-2"><span class="dot"></span><div class="item-card"><div class="time-row"><span class="time">11:00–11:30</span><label class="done"><input type="checkbox" class="done-box" data-key="day4-2"><span>완료</span></label></div><div class="title">렌트카 셔틀버스 이동</div><div class="desc">나하공항으로 이동</div></div></div>
+            <div class="tl-item" data-key="day4-3"><span class="dot"></span><div class="item-card"><div class="time-row"><span class="time">11:30~</span><label class="done"><input type="checkbox" class="done-box" data-key="day4-3"><span>완료</span></label></div><div class="title">나하공항 출국 수속 &amp; 귀국</div><div class="lnk-row"><a class="lnk" href="https://www.google.com/maps/dir/?api=1&amp;destination=26.2083403%2C127.650441" target="_blank" rel="noopener">길찾기</a></div></div></div>
         </div>
         <div class="plan-b">
           <div class="section-label"><span class="bar"></span><span class="lbl plain">PLAN B · 대체 코스</span></div>
           <p class="alt-note">항공편이 오후로 밀리거나 아침에 여유가 생길 때만. 셋 다 나하 숙소~공항 사이 동선 안에 있습니다.</p>
-          <div class="alt-grid"><div class="alt-card"><div class="alt-name">나미노우에궁 &amp; 비치</div><div class="alt-why">나하 시내 절벽 위 신사. 공항까지 차로 약 10분이라 반납 전 20분 코스로 적당.</div><div class="alt-meta">맵코드 33 155 804*27 · 무료 주차 20대 · 경내 자유 참배</div><div class="lnk-row"><a class="lnk" href="https://www.google.com/maps/dir/?api=1&amp;destination=%E6%B3%A2%E4%B8%8A%E5%AE%AE" target="_blank" rel="noopener">길찾기</a></div></div><div class="alt-card"><div class="alt-name">아시비나 아울렛</div><div class="alt-why">공항 근처 아울렛. 10시 오픈이라 오후 항공편일 때만 가능.</div><div class="alt-meta">맵코드 232 544 571*77 · 10:00~20:00</div><div class="lnk-row"><a class="lnk" href="https://www.google.com/maps/dir/?api=1&amp;destination=%E3%82%A2%E3%82%A6%E3%83%88%E3%83%AC%E3%83%83%E3%83%88%E3%83%A2%E3%83%BC%E3%83%AB%E3%81%82%E3%81%97%E3%81%B3%E3%81%AA%E3%83%BC" target="_blank" rel="noopener">길찾기</a></div></div><div class="alt-card"><div class="alt-name">국제거리 아침 산책</div><div class="alt-why">마츠오 숙소에서 도보권. 체크아웃 전 기념품·오미야게 마무리 쇼핑.</div><div class="alt-meta">도보 이동 · 차량 불필요</div><div class="lnk-row"><a class="lnk" href="https://www.google.com/maps/dir/?api=1&amp;destination=%E5%9B%BD%E9%9A%9B%E9%80%9A%E3%82%8A%20%E9%82%A3%E8%A6%87" target="_blank" rel="noopener">길찾기</a></div></div></div>
+          <div class="alt-grid"><div class="alt-card"><div class="alt-name">나미노우에궁 &amp; 비치</div><div class="alt-why">나하 시내 절벽 위 신사. 공항까지 차로 약 10분이라 반납 전 20분 코스로 적당.</div><div class="alt-meta">맵코드 33 155 804*27 · 무료 주차 20대 · 경내 자유 참배</div><div class="lnk-row"><a class="lnk" href="https://www.google.com/maps/dir/?api=1&amp;destination=26.2207706%2C127.6710988" target="_blank" rel="noopener">길찾기</a></div></div><div class="alt-card"><div class="alt-name">아시비나 아울렛</div><div class="alt-why">공항 근처 아울렛. 10시 오픈이라 오후 항공편일 때만 가능.</div><div class="alt-meta">맵코드 232 544 571*77 · 10:00~20:00</div><div class="lnk-row"><a class="lnk" href="https://www.google.com/maps/dir/?api=1&amp;destination=26.1590569%2C127.6575776" target="_blank" rel="noopener">길찾기</a></div></div><div class="alt-card"><div class="alt-name">국제거리 아침 산책</div><div class="alt-why">마츠오 숙소에서 도보권. 체크아웃 전 기념품·오미야게 마무리 쇼핑.</div><div class="alt-meta">도보 이동 · 차량 불필요</div><div class="lnk-row"><a class="lnk" href="https://www.google.com/maps/dir/?api=1&amp;destination=26.2151469%2C127.684745" target="_blank" rel="noopener">길찾기</a></div></div></div>
         </div>
       </div>
     </section>
@@ -255,6 +330,86 @@
 
 <script>
   (function () {
+    var DATA = {"day1": {"keys": ["day1-0", "day1-1", "day1-2", "day1-3", "day1-4", "day1-5"], "stops": [{"key": "day1-0", "q": "26.2083403,127.650441"}, {"key": "day1-2", "q": "26.1765465,127.6404145"}, {"key": "day1-3", "q": "26.3158768,127.7540067"}, {"key": "day1-4", "q": "26.3166813,127.7583119"}, {"key": "day1-5", "q": "26.5157192,127.9146881"}]}, "day2": {"keys": ["day2-0", "day2-1", "day2-2", "day2-3", "day2-4", "day2-5"], "stops": [{"key": "day2-1", "q": "26.5052353,127.8504781"}, {"key": "day2-2", "q": "26.6209963,127.9636717"}, {"key": "day2-3", "q": "26.694338,127.8780131"}, {"key": "day2-4", "q": "26.6946871,128.0210625"}]}, "day3": {"keys": ["day3-0", "day3-1", "day3-2", "day3-3", "day3-4", "day3-5", "day3-6", "day3-7"], "stops": [{"key": "day3-1", "q": "26.4450613,127.7714252"}, {"key": "day3-2", "q": "26.515048,127.916803"}, {"key": "day3-3", "q": "26.2178698,127.7174974"}, {"key": "day3-4", "q": "26.1762473,127.6415373"}, {"key": "day3-5", "q": "26.1777166,127.6541448"}, {"key": "day3-6", "q": "26.2145419,127.6834593"}, {"key": "day3-7", "q": "26.2151469,127.684745"}]}, "day4": {"keys": ["day4-0", "day4-1", "day4-2", "day4-3"], "stops": [{"key": "day4-3", "q": "26.2083403,127.650441"}]}};
+    var STORE = 'okinawa-done-v1';
+
+    function load() {
+      try { return JSON.parse(localStorage.getItem(STORE) || '[]'); } catch (e) { return []; }
+    }
+    function save(a) {
+      try { localStorage.setItem(STORE, JSON.stringify(a)); } catch (e) {}
+    }
+    var done = load();
+    function isDone(k) { return done.indexOf(k) !== -1; }
+
+    function routeUrl(stops) {
+      var qs = stops.filter(Boolean);
+      if (!qs.length) return '';
+      if (qs.length === 1) return 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(qs[0]);
+      var u = 'https://www.google.com/maps/dir/?api=1&travelmode=driving'
+            + '&origin=' + encodeURIComponent(qs[0])
+            + '&destination=' + encodeURIComponent(qs[qs.length - 1]);
+      var mid = qs.slice(1, -1).slice(0, 9);
+      if (mid.length) u += '&waypoints=' + encodeURIComponent(mid.join('|'));
+      return u;
+    }
+
+    function refresh() {
+      document.querySelectorAll('.tl-item').forEach(function (el) {
+        var k = el.getAttribute('data-key');
+        var on = isDone(k);
+        el.classList.toggle('is-done', on);
+        var box = el.querySelector('.done-box');
+        if (box) box.checked = on;
+      });
+      Object.keys(DATA).forEach(function (day) {
+        var keys = DATA[day].keys;
+        var n = keys.filter(isDone).length;
+        var cnt = document.querySelector('[data-count="' + day + '"]');
+        var fill = document.querySelector('[data-fill="' + day + '"]');
+        if (cnt) cnt.textContent = n + ' / ' + keys.length + ' 완료';
+        if (fill) fill.style.width = (keys.length ? Math.round(n / keys.length * 100) : 0) + '%';
+
+        var rest = DATA[day].stops.filter(function (s) { return !isDone(s.key); })
+                                  .map(function (s) { return s.q; });
+        var a = document.querySelector('[data-route="' + day + '"]');
+        if (a) {
+          var url = routeUrl(rest);
+          if (url) {
+            a.href = url;
+            a.removeAttribute('aria-disabled');
+            a.textContent = rest.length === DATA[day].stops.length
+              ? '남은 코스 동선 보기'
+              : '남은 코스 동선 보기 (' + rest.length + '곳)';
+          } else {
+            a.removeAttribute('href');
+            a.setAttribute('aria-disabled', 'true');
+            a.textContent = '오늘 코스 모두 완료';
+          }
+        }
+      });
+    }
+
+    document.querySelectorAll('.done-box').forEach(function (box) {
+      box.addEventListener('change', function () {
+        var k = box.getAttribute('data-key');
+        if (box.checked) { if (!isDone(k)) done.push(k); }
+        else { done = done.filter(function (x) { return x !== k; }); }
+        save(done);
+        refresh();
+      });
+    });
+
+    document.querySelectorAll('[data-reset]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var day = btn.getAttribute('data-reset');
+        var keys = DATA[day].keys;
+        done = done.filter(function (k) { return keys.indexOf(k) === -1; });
+        save(done);
+        refresh();
+      });
+    });
+
     var tabs = document.querySelectorAll('.tab');
     var panels = document.querySelectorAll('.day-panel');
     function show(id) {
@@ -272,6 +427,8 @@
     });
     var h = location.hash.slice(1);
     if (h && document.getElementById(h)) show(h);
+
+    refresh();
   })();
 </script>
 </body>
