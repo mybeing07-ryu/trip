@@ -210,6 +210,39 @@
   .fb.ng { border-color: rgba(165,80,47,0.40); background: rgba(165,80,47,0.07); }
   .fb.ng b { color: #A5502F; }
   .lnk-row.grp-links { margin-top: 14px; }
+  .subbar { display: none; border-top: 1px solid rgba(31,30,29,0.08); }
+  .subbar.open { display: block; }
+  .tabbar .sub-wrap { display: flex; flex-wrap: wrap; gap: 6px; padding-top: 8px; padding-bottom: 10px; }
+  .sub {
+    font-family: inherit; font-size: 12.5px; font-weight: 600; color: #5E5D59; cursor: pointer;
+    min-height: 34px; padding: 0 14px; border-radius: 999px; border: 1px solid rgba(31,30,29,0.15); background: #fff;
+  }
+  .sub[hidden] { display: none; }
+  .sub:hover { border-color: var(--accent); }
+  .sub.active { background: var(--strong); border-color: var(--bd); color: var(--accent); font-weight: 700; }
+  .sos-btn {
+    position: fixed; right: 16px; bottom: calc(16px + env(safe-area-inset-bottom, 0px)); z-index: 60;
+    display: inline-flex; align-items: center; gap: 8px; min-height: 48px; padding: 0 18px;
+    font-family: inherit; font-size: 14px; font-weight: 700; color: #fff; background: #A5502F;
+    border: none; border-radius: 999px; box-shadow: 0 6px 20px rgba(20,20,19,0.22); cursor: pointer;
+  }
+  .sos-btn:focus-visible { outline: 3px solid #141413; outline-offset: 2px; }
+  .sos { position: fixed; inset: 0; z-index: 90; display: none; align-items: flex-end; justify-content: center; background: rgba(20,20,19,0.45); }
+  .sos.open { display: flex; }
+  .sos-card {
+    width: 100%; max-width: 520px; background: #FAF9F5; border-radius: 18px 18px 0 0;
+    padding: 20px 20px calc(20px + env(safe-area-inset-bottom, 0px)); box-shadow: 0 -8px 30px rgba(20,20,19,0.18);
+  }
+  .sos-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+  .sos-head b { font-size: 17px; }
+  .sos-close { font-family: inherit; font-size: 13px; font-weight: 600; color: #5E5D59; background: #fff; border: 1px solid rgba(31,30,29,0.18); border-radius: 999px; min-height: 36px; padding: 0 14px; cursor: pointer; }
+  .sos-item { display: flex; align-items: center; gap: 12px; padding: 13px 0; border-bottom: 1px solid rgba(31,30,29,0.1); text-decoration: none; color: inherit; }
+  .sos-name { font-size: 14.5px; font-weight: 700; color: #141413; }
+  .sos-sub { display: block; font-size: 12px; font-weight: 400; color: #87867F; margin-top: 2px; }
+  .sos-num { margin-left: auto; flex-shrink: 0; font-size: 14px; font-weight: 700; color: #A5502F; padding: 8px 14px; border-radius: 999px; background: rgba(165,80,47,0.08); white-space: nowrap; }
+  .sos-note { font-size: 12px; color: #87867F; margin-top: 12px; line-height: 1.6; }
+  .foot { padding-bottom: 96px !important; }
+  @media print { .sos-btn, .sos, .subbar { display: none !important; } }
   .item-card.chg { background: rgba(232,180,60,0.12); border-radius: 10px; padding: 14px 16px; }
   .item-card.chg .chg-tag { margin-bottom: 6px; }
 
@@ -270,7 +303,7 @@
       <div class="metaline">
         <span>2026.11.4(수) ~ 11.7(토) · LJ5391 / LJ392</span><span class="sep">·</span><span>성인 5인</span><span class="sep">·</span><span>렌트카 드라이브 여행</span>
       </div>
-      <p class="notice">출발 전 <strong>'사전 체크'</strong> 탭을 꼭 확인하세요 — 국제운전면허증 · 한국 면허증 원본 · 여권, 세 가지가 모두 있어야 렌트카를 인수할 수 있습니다.</p>
+      <p class="notice">여행 중에는 날짜에 맞는 일차 탭이 먼저 열립니다. 매일 지출은 <strong>'경비'</strong> 탭, 항공권·보험·체크리스트는 <strong>'준비·서류'</strong> 탭에 있고, 오른쪽 아래 <strong>'긴급 연락'</strong> 버튼으로 바로 전화할 수 있습니다.</p>
     </div>
   </header>
 
@@ -280,11 +313,18 @@
         <button type="button" class="tab" data-day="day2" style="--accent:#3E6B99; --soft:rgba(62,107,153,0.09); --strong:rgba(62,107,153,0.20); --bd:rgba(62,107,153,0.45)"><span class="tab-t">2일차</span><span class="tab-s">북부투어</span></button>
         <button type="button" class="tab" data-day="day3" style="--accent:#8F3D5C; --soft:rgba(143,61,92,0.09); --strong:rgba(143,61,92,0.20); --bd:rgba(143,61,92,0.45)"><span class="tab-t">3일차</span><span class="tab-s">스노클링·온천</span></button>
         <button type="button" class="tab" data-day="day4" style="--accent:#52603F; --soft:rgba(82,96,63,0.09); --strong:rgba(82,96,63,0.20); --bd:rgba(82,96,63,0.45)"><span class="tab-t">4일차</span><span class="tab-s">귀국</span></button>
-        <button type="button" class="tab tab-check" data-day="check" style="--accent:#141413; --soft:rgba(20,20,19,0.06); --strong:rgba(20,20,19,0.13); --bd:rgba(20,20,19,0.35)"><span class="tab-t">사전 체크</span><span class="tab-s">출발 전 확인</span></button>
-        <button type="button" class="tab" data-day="flight" style="--accent:#256F6A; --soft:rgba(37,111,106,0.09); --strong:rgba(37,111,106,0.20); --bd:rgba(37,111,106,0.45)"><span class="tab-t">항공권</span><span class="tab-s">e-티켓</span></button>
-        <button type="button" class="tab" data-day="cost" style="--accent:#8A6A1F; --soft:rgba(138,106,31,0.09); --strong:rgba(138,106,31,0.20); --bd:rgba(138,106,31,0.45)"><span class="tab-t">경비 정산</span><span class="tab-s">공금 내역</span></button>
-        <button type="button" class="tab" data-day="safe" style="--accent:#4F5B93; --soft:rgba(79,91,147,0.09); --strong:rgba(79,91,147,0.20); --bd:rgba(79,91,147,0.45)"><span class="tab-t">보험·면세</span><span class="tab-s">보장·환급</span></button>
+        <button type="button" class="tab tab-check" data-group="money" data-children="spend,cost" style="--accent:#2F7A55; --soft:rgba(47,122,85,0.09); --strong:rgba(47,122,85,0.20); --bd:rgba(47,122,85,0.45)"><span class="tab-t">경비</span><span class="tab-s">현지 지출 · 정산</span></button>
+        <button type="button" class="tab" data-group="prep" data-children="flight,safe,check" style="--accent:#141413; --soft:rgba(20,20,19,0.06); --strong:rgba(20,20,19,0.13); --bd:rgba(20,20,19,0.35)"><span class="tab-t">준비·서류</span><span class="tab-s">항공 · 보험 · 체크</span></button>
         <button type="button" class="tab" data-day="jp" style="--accent:#6B4D9E; --soft:rgba(107,77,158,0.09); --strong:rgba(107,77,158,0.20); --bd:rgba(107,77,158,0.45)"><span class="tab-t">일본어 회화</span><span class="tab-s">상황별 표현</span></button>
+    </div>
+    <div class="subbar" id="subbar">
+      <div class="wrap sub-wrap">
+        <button type="button" class="sub" data-day="spend" data-parent="money" hidden style="--accent:#2F7A55; --soft:rgba(47,122,85,0.09); --strong:rgba(47,122,85,0.20); --bd:rgba(47,122,85,0.45)">현지 지출</button>
+        <button type="button" class="sub" data-day="cost" data-parent="money" hidden style="--accent:#8A6A1F; --soft:rgba(138,106,31,0.09); --strong:rgba(138,106,31,0.20); --bd:rgba(138,106,31,0.45)">출발 전 정산</button>
+        <button type="button" class="sub" data-day="flight" data-parent="prep" hidden style="--accent:#256F6A; --soft:rgba(37,111,106,0.09); --strong:rgba(37,111,106,0.20); --bd:rgba(37,111,106,0.45)">항공권</button>
+        <button type="button" class="sub" data-day="safe" data-parent="prep" hidden style="--accent:#4F5B93; --soft:rgba(79,91,147,0.09); --strong:rgba(79,91,147,0.20); --bd:rgba(79,91,147,0.45)">보험·면세</button>
+        <button type="button" class="sub" data-day="check" data-parent="prep" hidden style="--accent:#141413; --soft:rgba(20,20,19,0.06); --strong:rgba(20,20,19,0.13); --bd:rgba(20,20,19,0.35)">사전 체크리스트</button>
+      </div>
     </div>
   </nav>
 
@@ -300,8 +340,8 @@
           </div>
           <div class="progress-track"><span class="progress-fill" data-fill="day1" style="width:0%"></span></div>
           <div class="lnk-row">
-            <a class="lnk" data-route="day1" href="https://www.google.com/maps/dir/?api=1&travelmode=driving&origin=26.2083403%2C127.650441&destination=26.5157192%2C127.9146881&waypoints=26.1765465%2C127.6404145%7C26.3158768%2C127.7540067%7C26.3166813%2C127.7583119" target="_blank" rel="noopener">남은 코스 동선 보기</a>
-            <a class="lnk" href="https://www.google.com/maps/dir/?api=1&travelmode=driving&origin=26.2083403%2C127.650441&destination=26.5157192%2C127.9146881&waypoints=26.1765465%2C127.6404145%7C26.3158768%2C127.7540067%7C26.3166813%2C127.7583119" target="_blank" rel="noopener">오늘 전체 동선</a>
+            <a class="lnk" data-route="day1" href="https://www.google.com/maps/dir/?api=1&travelmode=driving&origin=26.2083403%2C127.650441&destination=26.5157192%2C127.9146881&waypoints=26.1765465%2C127.6404145%7C26.3158768%2C127.7540067%7C2-5-8%20Mihama%2C%20Chatan%2C%20Okinawa%20904-0115" target="_blank" rel="noopener">남은 코스 동선 보기</a>
+            <a class="lnk" href="https://www.google.com/maps/dir/?api=1&travelmode=driving&origin=26.2083403%2C127.650441&destination=26.5157192%2C127.9146881&waypoints=26.1765465%2C127.6404145%7C26.3158768%2C127.7540067%7C2-5-8%20Mihama%2C%20Chatan%2C%20Okinawa%20904-0115" target="_blank" rel="noopener">오늘 전체 동선</a>
             <button type="button" class="lnk reset" data-reset="day1">체크 초기화</button>
           </div>
         </div>
@@ -311,7 +351,7 @@
             <div class="tl-item" data-key="day1-2"><span class="dot"></span><div class="item-card"><div class="time-row"><span class="time">12:10–13:10</span><label class="done"><input type="checkbox" class="done-box" data-key="day1-2"><span>완료</span></label></div><div class="title">렌트카 인수 (유아이렌트카)</div><div class="desc">국내선 터미널 1층으로 이동 → 횡단보도 건너 10-A 승강장에서 셔틀버스 탑승. 피켓 든 스태프에게 예약자 이름 확인</div><div class="meta">토요타 알파드 2025년형 또는 동급 밴 · 7인승 · 픽업 예약 12:00</div></div></div>
             <div class="tl-item" data-key="day1-3"><span class="dot"></span><div class="item-card hl"><div class="pick">대표 명소</div><div class="time-row"><span class="time">13:30–15:30</span><label class="done"><input type="checkbox" class="done-box" data-key="day1-3"><span>완료</span></label></div><div class="title">세나가섬 우미카지 테라스 — 점심</div><div class="desc">바다 전망 계단식 상가에서 식사 (버거, 타코라이스, 오키나와 소바 등)</div><div class="meta">맵코드 33 002 602*06 · 무료 주차</div><div class="lnk-row"><a class="lnk" href="https://www.google.com/maps/dir/?api=1&amp;destination=26.1765465%2C127.6404145" target="_blank" rel="noopener">길찾기</a><a class="lnk" href="tel:0988517446">전화 098-851-7446</a></div></div></div>
             <div class="tl-item" data-key="day1-4"><span class="dot"></span><div class="item-card"><div class="time-row"><span class="time">16:30–18:30</span><label class="done"><input type="checkbox" class="done-box" data-key="day1-4"><span>완료</span></label></div><div class="title">차탄 선셋비치 &amp; 아메리칸 빌리지</div><div class="desc">노을 산책</div><div class="meta">맵코드 33 526 452*52 · 공용 무료 주차</div><div class="lnk-row"><a class="lnk" href="https://www.google.com/maps/dir/?api=1&amp;destination=26.3158768%2C127.7540067" target="_blank" rel="noopener">길찾기</a><a class="lnk" href="tel:0989361234">전화 098-936-1234</a></div></div></div>
-            <div class="tl-item" data-key="day1-5"><span class="dot"></span><div class="item-card"><div class="time-row"><span class="time">18:30–19:30</span><label class="done"><input type="checkbox" class="done-box" data-key="day1-5"><span>완료</span></label></div><div class="title">저녁 — 얏빠리 스테이크 차탄 미하마점</div><div class="desc">가성비 좋은 두툼한 소고기 스테이크</div><div class="meta">맵코드 33 526 482*58 · 무료 주차</div><div class="lnk-row"><a class="lnk" href="https://www.google.com/maps/dir/?api=1&amp;destination=26.3166813%2C127.7583119" target="_blank" rel="noopener">길찾기</a><a class="lnk" href="tel:0989895439">전화 098-989-5439</a></div></div></div>
+            <div class="tl-item" data-key="day1-5"><span class="dot"></span><div class="item-card"><div class="time-row"><span class="time">18:30–19:30</span><label class="done"><input type="checkbox" class="done-box" data-key="day1-5"><span>완료</span></label></div><div class="title">저녁 — 카이센 밧텐 (Kaisen Batten) · 차탄 미하마</div><div class="desc">해산물·스시 — 제철 생선 모둠, 특상 니기리 등 (얏빠리 스테이크에서 변경)</div><div class="meta">2-5-8 Mihama, Chatan, Nakagami District, Okinawa 904-0115</div><div class="lnk-row"><a class="lnk" href="https://www.google.com/maps/dir/?api=1&amp;destination=2-5-8%20Mihama%2C%20Chatan%2C%20Okinawa%20904-0115" target="_blank" rel="noopener">길찾기</a></div></div></div>
             <div class="tl-item" data-key="day1-6"><span class="dot"></span><div class="item-card"><div class="time-row"><span class="time">20:30</span><label class="done"><input type="checkbox" class="done-box" data-key="day1-6"><span>완료</span></label></div><div class="title">1일차 숙소 체크인 (온나손 나카마 2288-44)</div><div class="desc">오시는 길 편의점(로손)에서 오리온 생맥주·하이볼·안주 사서 숙소 맥주 파티</div><div class="meta">맵코드 206 381 823*33 · 구글맵 링크는 仲間 지역 기준(정확한 위치는 맵코드 사용)</div><div class="lnk-row"><a class="lnk" href="https://www.google.com/maps/dir/?api=1&amp;destination=26.5157192%2C127.9146881" target="_blank" rel="noopener">길찾기</a></div></div></div>
         </div>
         <div class="plan-b">
@@ -452,6 +492,16 @@
         <div class="chk-group"><h3>① 항공권 정산</h3><div class="ledger"><div class="lg-row in"><span class="lg-label">항공권 비용으로 받은 돈</span><span class="lg-amt">+2,000,000</span></div><div class="lg-row out"><span class="lg-label">항공권 결제<small>진에어 LJ5391 / LJ392 · 5명</small></span><span class="lg-amt">−1,925,500</span></div><div class="lg-row total"><span class="lg-label">항공권 정산 후 남은 돈</span><span class="lg-amt">74,500</span></div></div></div><div class="chk-group"><h3>② 회비 더하기</h3><div class="ledger"><div class="lg-row carry"><span class="lg-label">항공권 정산 후 남은 돈</span><span class="lg-amt">74,500</span></div><div class="lg-row in"><span class="lg-label">회비</span><span class="lg-amt">+1,200,000</span></div><div class="lg-row total"><span class="lg-label">모인 공금</span><span class="lg-amt">1,274,500</span></div></div></div><div class="chk-group"><h3>③ 렌터카 · 숙박 · 보험 결제</h3><div class="ledger"><div class="lg-row out"><span class="lg-label">렌터카<small>유아이렌트카 · 알파드 7인승 · 11/4 ~ 11/7</small></span><span class="lg-amt">−416,400</span></div><div class="lg-row out"><span class="lg-label">숙박 ①</span><span class="lg-amt">−247,472</span></div><div class="lg-row out"><span class="lg-label">숙박 ②</span><span class="lg-amt">−543,508</span></div><div class="lg-row out"><span class="lg-label">여행자 보험<small>DB손해보험 해외여행보험 · 5명 단체</small></span><span class="lg-amt">−23,030</span></div><div class="lg-row subtotal"><span class="lg-label">지출 합계</span><span class="lg-amt">1,230,410</span></div><div class="lg-row total"><span class="lg-label">결제 후 남은 돈</span><span class="lg-amt">44,090</span></div></div></div><div class="chk-group"><h3>④ 환전 금액</h3><div class="ledger"><div class="lg-row carry"><span class="lg-label">결제 후 남은 돈</span><span class="lg-amt">44,090</span></div><div class="lg-row in"><span class="lg-label">10월분 회비<small>11월 여행이라 회비는 10월분까지 반영</small></span><span class="lg-amt">+120,000</span></div><div class="lg-row total"><span class="lg-label">엔화 환전 예정 금액</span><span class="lg-amt">164,090</span></div></div></div><div class="chk-group"><h3>⑤ 현지 공통 경비 — 1인 기준 (엔화)</h3><div class="ledger"><div class="lg-row in"><span class="lg-label">1일차 11/4(수)</span><span class="lg-amt">+¥10,000</span></div><div class="lg-row in"><span class="lg-label">2일차 11/5(목)</span><span class="lg-amt">+¥10,000</span></div><div class="lg-row in"><span class="lg-label">3일차 11/6(금)</span><span class="lg-amt">+¥10,000</span></div><div class="lg-row in"><span class="lg-label">3일차 스노클링<small>푸른동굴 보트 스노클링 ¥30,000 ÷ 5명 · 현장 결제</small></span><span class="lg-amt">+¥6,000</span></div><div class="lg-row carry"><span class="lg-label">4일차 11/7(토)<small>귀국일은 걷지 않음</small></span><span class="lg-amt">¥0</span></div><div class="lg-row total"><span class="lg-label">1인 준비 금액</span><span class="lg-amt">¥36,000</span></div></div></div><div class="chk-group"><h3>⑥ 5명 합계</h3><div class="ledger"><div class="lg-row carry"><span class="lg-label">하루 공통 경비<small>¥10,000 × 5명</small></span><span class="lg-amt">¥50,000</span></div><div class="lg-row in"><span class="lg-label">1~3일차 공통 경비<small>¥50,000 × 3일</small></span><span class="lg-amt">+¥150,000</span></div><div class="lg-row in"><span class="lg-label">스노클링 현장 결제</span><span class="lg-amt">+¥30,000</span></div><div class="lg-row total"><span class="lg-label">5명 공통 경비 합계</span><span class="lg-amt">¥180,000</span></div></div></div><div class="chk-group"><h3>공통 경비 안내</h3><ul class="chk-list"><li>매일 1인 ¥10,000씩 걷어 공통 경비로 사용합니다 (지난번 베트남 여행과 같은 방식) — 마지막 날(4일차)은 걷지 않습니다</li><li>3일차에는 스노클링 비용 ¥6,000을 더해 ¥16,000을 냅니다</li><li>그래서 1인 ¥36,000은 꼭 엔화로 준비해 오세요. 나머지 선물·개인 쇼핑 비용은 각자 따로 챙겨 오시면 됩니다</li></ul></div><div class="chk-group warn"><h3>확인할 점</h3><ul class="chk-list"><li>보험료 23,030원을 더하면서 결제 후 남은 돈은 44,090원, 환전 예정 금액은 164,090원으로 바뀌었습니다</li><li>단톡방 공지(67,520원 / 187,520원)는 보험료를 빼기 전 금액이고, 항목대로 계산하면 보험료 전 기준으로도 400원 차이(67,120원 / 187,120원)가 납니다</li><li>결제 영수증 금액 중 하나가 다르게 적혔을 수 있으니, 영수증과 맞춰 본 뒤 틀린 쪽을 고치면 됩니다</li></ul></div>
       </div>
     </section>
+    <section class="day-panel is-hidden" id="spend" style="--accent:#2F7A55; --tint:rgba(47,122,85,0.09)">
+      <div class="day-inner">
+        <div class="section-label"><span class="bar"></span><span class="lbl">현지 정산</span></div>
+        <h2>현지 공통 경비 사용 내역</h2>
+        <p class="alt-note" style="margin-bottom:26px;">매일 1인 ¥10,000씩(5명 ¥50,000) 걷은 공통 경비를 영수증 기준으로 정리합니다. 남은 돈은 다음 날로 넘겨 이어서 계산합니다.</p>
+        
+        <div class="stats"><div class="stat"><div class="stat-k">1일차 걷은 공통 경비</div><div class="stat-v">¥50,000</div></div><div class="stat"><div class="stat-k">1일차 지출</div><div class="stat-v">¥42,001</div></div><div class="stat key"><div class="stat-k">남은 공통 경비 (2일차로 이월)</div><div class="stat-v">¥7,999</div></div></div>
+        <div class="chk-group"><h3>1일차 11/4(수) — 영수증별 지출</h3><div class="ledger"><div class="lg-row out"><span class="lg-label">13:42 GYPSY (우미카지 테라스) — 점심<small>스몰 버거 2 · 시푸드(L) 1 · 생맥주 3</small></span><span class="lg-amt">−¥8,200</span></div><div class="lg-row out"><span class="lg-label">13:51 GYPSY — 추가 음료<small>생맥주 1</small></span><span class="lg-amt">−¥700</span></div><div class="lg-row out"><span class="lg-label">13:56 GYPSY — 추가 음료<small>콜라 1</small></span><span class="lg-amt">−¥600</span></div><div class="lg-row out"><span class="lg-label">14:08 GYPSY — 추가 음료<small>생맥주 1</small></span><span class="lg-amt">−¥700</span></div><div class="lg-row out"><span class="lg-label">16:31 블루씰 아메리칸 빌리지점<small>아이스크림 플로트 5잔</small></span><span class="lg-amt">−¥2,750</span></div><div class="lg-row out"><span class="lg-label">17:30 솔리스 그란데 (차탄)<small>오리온 생맥주 3 · 아이스티 1</small></span><span class="lg-amt">−¥2,420</span></div><div class="lg-row out"><span class="lg-label">18:34 저녁 — 카이센 밧텐 (차탄 미하마)<small>제철 생선 모둠 · 5종 모둠 · 특상 니기리 · 쿠보타 센쥬 720ml · 라후테 · 캘리포니아롤 · 낫토마키</small></span><span class="lg-amt">−¥19,880</span></div><div class="lg-row out"><span class="lg-label">20:53 로손 카리유시 비치 리조트점<small>숙소 맥주·안주·간식 등 26개</small></span><span class="lg-amt">−¥6,751</span></div><div class="lg-row total"><span class="lg-label">1일차 지출 합계<small>영수증 8장</small></span><span class="lg-amt">¥42,001</span></div></div></div><div class="chk-group"><h3>1일차 — 항목별</h3><div class="ledger"><div class="lg-row out"><span class="lg-label">식사</span><span class="lg-amt">−¥30,080</span></div><div class="lg-row out"><span class="lg-label">편의점</span><span class="lg-amt">−¥6,751</span></div><div class="lg-row out"><span class="lg-label">카페·음료</span><span class="lg-amt">−¥5,170</span></div><div class="lg-row total"><span class="lg-label">합계</span><span class="lg-amt">¥42,001</span></div></div></div><div class="chk-group"><h3>1일차 — 공통 경비 잔액</h3><div class="ledger"><div class="lg-row in"><span class="lg-label">걷은 공통 경비<small>¥10,000 × 5명</small></span><span class="lg-amt">+¥50,000</span></div><div class="lg-row out"><span class="lg-label">1일차 지출</span><span class="lg-amt">−¥42,001</span></div><div class="lg-row total"><span class="lg-label">남은 공통 경비<small>2일차로 이월</small></span><span class="lg-amt">¥7,999</span></div></div></div><div class="chk-group"><h3>정리 기준</h3><ul class="chk-list"><li>영수증 사진 8장 중 같은 영수증이 겹친 사진은 한 번만 계산했습니다</li><li>모두 공통 경비로 결제한 것으로 계산했습니다 — 개인 돈으로 낸 항목이 있으면 빼면 됩니다</li><li>2일차부터는 영수증 사진을 보내주시면 같은 형식으로 이어서 정리합니다</li></ul></div>
+      </div>
+    </section>
     <section class="day-panel is-hidden" id="safe" style="--accent:#4F5B93; --tint:rgba(79,91,147,0.09)">
       <div class="day-inner">
         <div class="section-label"><span class="bar"></span><span class="lbl">보험·면세</span></div>
@@ -474,6 +524,14 @@
     </section>
   </main>
 
+  <button type="button" class="sos-btn" id="sos-open" aria-haspopup="dialog">긴급 연락</button>
+  <div class="sos" id="sos" role="dialog" aria-modal="true" aria-label="긴급 연락처">
+    <div class="sos-card">
+      <div class="sos-head"><b>긴급 연락</b><button type="button" class="sos-close" id="sos-close">닫기</button></div>
+      <a class="sos-item" href="tel:110"><span class="sos-name">경찰 — 사고 · 도난 신고<span class="sos-sub">일본 긴급번호</span></span><span class="sos-num">110</span></a><a class="sos-item" href="tel:119"><span class="sos-name">구급차 · 소방<span class="sos-sub">일본 긴급번호</span></span><span class="sos-num">119</span></a><a class="sos-item" href="tel:+82230115200"><span class="sos-name">DB손해보험 해외 긴급지원<span class="sos-sub">우리말 상담 · 수신자 부담</span></span><span class="sos-num">+82-2-3011-5200</span></a><a class="sos-item" href="tel:+82232100404"><span class="sos-name">외교부 영사콜센터<span class="sos-sub">24시간 · 여권 분실 등</span></span><span class="sos-num">+82-2-3210-0404</span></a><a class="sos-item" href="tel:0989883900"><span class="sos-name">3일차 숙소 — 호텔 리빙 인 켄초마에역<span class="sos-sub">나하</span></span><span class="sos-num">098-988-3900</span></a>
+      <p class="sos-note">번호를 누르면 바로 전화가 걸립니다. 렌터카·온나 숙소 번호는 예약 확인 메일과 단톡방을 확인하세요.</p>
+    </div>
+  </div>
   <div class="zoom" id="zoom" role="dialog" aria-modal="true">
     <div class="zoom-inner">
       <div class="zoom-jp" id="zoom-jp"></div>
@@ -489,7 +547,7 @@
 
 <script>
   (function () {
-    var DATA = {"day1": {"keys": ["day1-0", "day1-1", "day1-2", "day1-3", "day1-4", "day1-5", "day1-6"], "stops": [{"key": "day1-1", "q": "26.2083403,127.650441"}, {"key": "day1-3", "q": "26.1765465,127.6404145"}, {"key": "day1-4", "q": "26.3158768,127.7540067"}, {"key": "day1-5", "q": "26.3166813,127.7583119"}, {"key": "day1-6", "q": "26.5157192,127.9146881"}]}, "day2": {"keys": ["day2-0", "day2-1", "day2-2", "day2-3", "day2-4", "day2-5", "day2-6", "day2-7", "day2-8"], "stops": [{"key": "day2-1", "q": "26.6209963,127.9636717"}, {"key": "day2-2", "q": "26.5052353,127.8504781"}, {"key": "day2-3", "q": "26.694338,127.8780131"}, {"key": "day2-4", "q": "26.6946871,128.0210625"}, {"key": "day2-5", "q": "26.5157192,127.9146881"}, {"key": "day2-6", "q": "26.4506943,127.8038175"}, {"key": "day2-7", "q": "26.344716,127.8568507"}, {"key": "day2-8", "q": "26.5157192,127.9146881"}]}, "day3": {"keys": ["day3-0", "day3-1", "day3-2", "day3-3", "day3-4", "day3-5", "day3-6", "day3-7", "day3-8", "day3-9"], "stops": [{"key": "day3-1", "q": "26.4354796,127.7630855"}, {"key": "day3-4", "q": "26.515048,127.916803"}, {"key": "day3-5", "q": "26.2178698,127.7174974"}, {"key": "day3-6", "q": "26.1762473,127.6415373"}, {"key": "day3-7", "q": "26.1777166,127.6541448"}, {"key": "day3-8", "q": "26.2163439,127.6806398"}, {"key": "day3-9", "q": "26.2151469,127.684745"}]}, "day4": {"keys": ["day4-0", "day4-1", "day4-2", "day4-3", "day4-4", "day4-5", "day4-6"], "stops": [{"key": "day4-0", "q": "26.2163439,127.6806398"}, {"key": "day4-3", "q": "26.2083403,127.650441"}]}};
+    var DATA = {"day1": {"keys": ["day1-0", "day1-1", "day1-2", "day1-3", "day1-4", "day1-5", "day1-6"], "stops": [{"key": "day1-1", "q": "26.2083403,127.650441"}, {"key": "day1-3", "q": "26.1765465,127.6404145"}, {"key": "day1-4", "q": "26.3158768,127.7540067"}, {"key": "day1-5", "q": "2-5-8 Mihama, Chatan, Okinawa 904-0115"}, {"key": "day1-6", "q": "26.5157192,127.9146881"}]}, "day2": {"keys": ["day2-0", "day2-1", "day2-2", "day2-3", "day2-4", "day2-5", "day2-6", "day2-7", "day2-8"], "stops": [{"key": "day2-1", "q": "26.6209963,127.9636717"}, {"key": "day2-2", "q": "26.5052353,127.8504781"}, {"key": "day2-3", "q": "26.694338,127.8780131"}, {"key": "day2-4", "q": "26.6946871,128.0210625"}, {"key": "day2-5", "q": "26.5157192,127.9146881"}, {"key": "day2-6", "q": "26.4506943,127.8038175"}, {"key": "day2-7", "q": "26.344716,127.8568507"}, {"key": "day2-8", "q": "26.5157192,127.9146881"}]}, "day3": {"keys": ["day3-0", "day3-1", "day3-2", "day3-3", "day3-4", "day3-5", "day3-6", "day3-7", "day3-8", "day3-9"], "stops": [{"key": "day3-1", "q": "26.4354796,127.7630855"}, {"key": "day3-4", "q": "26.515048,127.916803"}, {"key": "day3-5", "q": "26.2178698,127.7174974"}, {"key": "day3-6", "q": "26.1762473,127.6415373"}, {"key": "day3-7", "q": "26.1777166,127.6541448"}, {"key": "day3-8", "q": "26.2163439,127.6806398"}, {"key": "day3-9", "q": "26.2151469,127.684745"}]}, "day4": {"keys": ["day4-0", "day4-1", "day4-2", "day4-3", "day4-4", "day4-5", "day4-6"], "stops": [{"key": "day4-0", "q": "26.2163439,127.6806398"}, {"key": "day4-3", "q": "26.2083403,127.650441"}]}};
     var STORE = 'okinawa-done-v1';
 
     function load() {
@@ -601,22 +659,59 @@
     }
 
     var tabs = document.querySelectorAll('.tab');
+    var subs = document.querySelectorAll('.sub');
+    var subbar = document.getElementById('subbar');
     var panels = document.querySelectorAll('.day-panel');
+    var parentOf = {}, lastChild = {};
+    document.querySelectorAll('.tab[data-group]').forEach(function (g) {
+      g.getAttribute('data-children').split(',').forEach(function (c) { parentOf[c] = g.getAttribute('data-group'); });
+    });
     function show(id) {
-      tabs.forEach(function (t) { t.classList.toggle('active', t.getAttribute('data-day') === id); });
+      var grp = parentOf[id];
+      tabs.forEach(function (t) {
+        var on = t.getAttribute('data-day') === id || (grp && t.getAttribute('data-group') === grp);
+        t.classList.toggle('active', !!on);
+      });
+      subs.forEach(function (b) {
+        b.hidden = b.getAttribute('data-parent') !== grp;
+        b.classList.toggle('active', b.getAttribute('data-day') === id);
+      });
+      subbar.classList.toggle('open', !!grp);
       panels.forEach(function (p) { p.classList.toggle('is-hidden', p.id !== id); });
+      if (grp) lastChild[grp] = id;
+    }
+    function go(id) {
+      show(id);
+      if (location.hash.slice(1) !== id) history.replaceState(null, '', '#' + id);
+      var bar = document.querySelector('.tabbar');
+      if (bar.getBoundingClientRect().top < 0) window.scrollTo({ top: bar.offsetTop, behavior: 'smooth' });
     }
     tabs.forEach(function (tab) {
       tab.addEventListener('click', function () {
         var id = tab.getAttribute('data-day');
-        show(id);
-        if (location.hash.slice(1) !== id) history.replaceState(null, '', '#' + id);
-        var bar = document.querySelector('.tabbar');
-        if (bar.getBoundingClientRect().top < 0) window.scrollTo({ top: bar.offsetTop, behavior: 'smooth' });
+        if (!id) {
+          var g = tab.getAttribute('data-group');
+          id = lastChild[g] || tab.getAttribute('data-children').split(',')[0];
+        }
+        go(id);
       });
     });
+    subs.forEach(function (b) { b.addEventListener('click', function () { go(b.getAttribute('data-day')); }); });
     var h = location.hash.slice(1);
-    if (h && document.getElementById(h)) show(h);
+    if (h && document.getElementById(h)) { show(h); }
+    else {
+      var today = new Date(Date.now() + 9 * 3600 * 1000).toISOString().slice(0, 10);
+      var byDate = { '2026-11-04': 'day1', '2026-11-05': 'day2', '2026-11-06': 'day3', '2026-11-07': 'day4' };
+      if (byDate[today]) show(byDate[today]);
+      else if (today > '2026-11-07') show('spend');
+    }
+
+    var sos = document.getElementById('sos');
+    function sosClose() { sos.classList.remove('open'); }
+    document.getElementById('sos-open').addEventListener('click', function () { sos.classList.add('open'); });
+    document.getElementById('sos-close').addEventListener('click', sosClose);
+    sos.addEventListener('click', function (e) { if (e.target === sos) sosClose(); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') sosClose(); });
 
     refresh();
   })();
